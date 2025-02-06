@@ -1,157 +1,61 @@
-# CRUD Express
+# Explicação do Código do Servidor com Express
 
-Este é um projeto básico de CRUD utilizando Express.js.
+Nesta seção, vamos explorar de maneira detalhada como funciona um servidor simples utilizando Express e dotenv, abordando cada parte do código para que iniciantes possam compreender facilmente.
 
-## Instalação
+## 1. Importação das Bibliotecas
 
-1. Clone o repositório:
-    ```bash
-    git clone <URL_DO_REPOSITORIO>
-    ```
-2. Navegue até o diretório do projeto:
-    ```bash
-    cd crud_express
-    ```
-3. Instale as dependências:
-    ```bash
-    npm install
-    ```
-4. Crie um arquivo `.env` na raiz do projeto e defina a porta:
-    ```env
-    PORTA=porta_que_deseja
-    ```
+- **express**:  
+  Esta biblioteca facilita a criação de um servidor web. Ela permite definir rotas, utilizar middlewares e gerenciar respostas HTTP de forma simples e direta.
 
-## Uso
+- **dotenv**:  
+  Essa biblioteca é utilizada para carregar variáveis de ambiente de um arquivo `.env`. Isso torna o gerenciamento das configurações (como a porta do servidor) muito mais flexível, pois você não precisa alterar o código para mudar essas configurações.
 
-Para iniciar o servidor, execute:
-```bash
-node index.js
-```
+## 2. Configuração das Variáveis de Ambiente
 
-O servidor estará rodando em `http://localhost:3000` (ou na porta definida no arquivo `.env`).
+- **dotenv.config()**:  
+  Com essa chamada, o aplicativo carrega as variáveis definidas no arquivo `.env` para a aplicação. Assim, se você precisar alterar a porta ou outras configurações, basta modificar o arquivo `.env`, sem a necessidade de reescrever o código.
 
-## Rotas
+## 3. Inicialização do Servidor
 
-- `GET /aluno` - Retorna uma mensagem indicando que esta rota é de aluno.
-- `GET /professor` - Retorna uma mensagem indicando que esta rota é de professor.
+- **Definir a Porta**:  
+  A constante `port` é definida a partir de uma variável de ambiente (por exemplo, `PORT=3001`), garantindo que o código possa ser facilmente configurado para diferentes ambientes (desenvolvimento, produção).
 
-## Código
+- **Criar a Instância do Express**:  
+  Um objeto `aplicativo` é criado utilizando `express()`. Este objeto será responsável por gerenciar as rotas (caminhos) e os middlewares, que são funções intermediárias no processamento das requisições.
 
-```javascript
-// Importando o express
-const express = require('express');
-// Importando a biblioteca dotenv
-const dotenv = require('dotenv');
+## 4. Configuração do Middleware
 
-// Carregando as variáveis de ambiente
-dotenv.config();
+- **express.json()**:  
+  Ao utilizar `aplicativo.use(express.json())`, o Express é configurado para reconhecer e interpretar requisições cujo corpo está em formato JSON. Isso é essencial para lidar com dados enviados por clientes, como formulários ou requisições de APIs.
 
-// Criando um objeto chamado app
-const aplicativo = express()
+## 5. Definição das Rotas
 
-// Criamos a porta
-const port = process.env.PORTA
+- **GET `/produtos`**:  
+  Esta rota é utilizada para listar todos os produtos presentes no `banco_dados`. Quando o servidor receber uma requisição GET na rota `/produtos`, ele responderá com a lista de produtos.
 
-// VERBOS OU METODOS - HTTP
-// Pegar - GET
-// Postar - POST
-// Atualizar - PUT
-// Deletar - DELETE
-aplicativo.get('/aluno', (requisicao, resposta) => {
-  resposta.send('Essa rota é de aluno')
-})
+- **POST `/produtos`**:  
+  Essa rota permite o cadastro de um novo produto. Ao enviar uma requisição POST com os dados necessários (`id`, `nome` e `preco`) no corpo da requisição, o novo produto é adicionado ao array `banco_dados`. Se a operação for bem-sucedida, o servidor responde com uma mensagem de sucesso e o status HTTP 201 (criado).
 
-aplicativo.get('/professor', (requisicao, resposta) => {
-    resposta.send('Essa rota é de professor')
-  })
+## 6. Inicialização do Servidor
 
-aplicativo.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`)
-})
-```
+- **aplicativo.listen()**:  
+  Esse comando inicia o servidor na porta definida anteriormente. O callback passado para `aplicativo.listen(port, () => { ... })` é executado assim que o servidor começa a "escutar" as requisições, permitindo o acesso aos endpoints configurados.
 
-## Contribuição
+## Exemplos de Uso das Rotas
 
-Sinta-se à vontade para contribuir com este projeto. Faça um fork, crie um branch e envie um pull request.
+- **Listar Produtos**:  
+  Execute uma requisição GET para:  
+  http://localhost:3001/produtos
 
-## Licença
-
-Este projeto está licenciado sob a licença MIT.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- **Cadastrar um Produto**:  
+  Execute uma requisição POST para:  
+  http://localhost:3001/produtos  
+  com o header `Content-Type: application/json` e o seguinte corpo:
+  
+  {
+    "id": 1,
+    "nome": "GTX 4090 24gb",
+    "preco": 14450
+  }
 
 

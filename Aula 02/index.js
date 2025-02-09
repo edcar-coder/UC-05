@@ -11,15 +11,15 @@ app.use(express.json());
 
 const bancoDados = [];
 
-app.get('/produtos', (req, res) => {
-  res.json(bancoDados);
+app.get('/produtos', (requisicao, resposta) => {
+  resposta.json(bancoDados);
 });
 
-app.post('/produtos', (req, res) => {
-  const { id, nome, preco } = req.body;
+app.post('/produtos', (requisicao, resposta) => {
+  const { id, nome, preco } = requisicao.body;
   const novoProduto = { id, nome, preco };
   bancoDados.push(novoProduto);
-  res.status(201).json({ mensagem: "Produto criado com sucesso" });
+  resposta.status(201).json({ mensagem: "Produto criado com sucesso" });
 });
 
 app.listen(port, () => {

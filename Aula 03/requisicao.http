@@ -1,0 +1,47 @@
+### Rota para pegar os produtos
+GET http://localhost:3000/produtos
+ Content-Type: application/json
+### fechando a requicisao
+
+### Rota criando o produto
+POST http://localhost:3000/produtos
+Content-Type: application/json
+
+{
+    
+    "nome":"chaveiro",
+    "preco":1465,
+    "quantidade":13
+}
+
+### 
+
+###pegar produto pelo id
+GET http://localhost:3000/produtos/1
+Content-Type: application/json
+
+
+### PUT -Editar produto 
+PUT http://localhost:3000/produto/1
+Content-Type: application/json
+
+{
+    "novoNome": "oculos",
+    "novoPreco": 1300,
+    "novaQuantidade":15
+}
+
+###
+
+
+###DELETE - DELETAR OS PRODUTOS
+DELETE http://localhost:3000/produtos/1
+Content-Type: application/json
+
+
+### 
+
+### DELETE -Excluido todos os produtos
+DELETE http://localhost:3000/produtos
+Content-Type:application/json
+

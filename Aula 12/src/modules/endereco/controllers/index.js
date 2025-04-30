@@ -15,7 +15,7 @@ class EnderecoController{
         }
     }
          
-    static async editarEnderecoAluno(requisicao, resposta){
+    static async editarEnderecoMatricula(requisicao, resposta){
         try {
             const matricula = requisicao.params.matricula 
             const{ cep, numero, ponto_referencia} = requisicao.body

@@ -1,14 +1,14 @@
 const sequelize = require('../../../config/configDb');
 const { DataTypes } = require('sequelize');
 
-const SecretarioModel = sequelize.define('SecretarioModel',{
+const ProfessorModel = sequelize.define('ProfessorModel',{
       matricula: {
         type: DataTypes.CHAR(5),
         primaryKey: true,
         validate:{
             is:{
-                args:/^[a-zA-Z]\d{4}$/,
-                msg: 'A matrícula deve começar com uma letra e ter quatro números em seguida.'
+                args:/^i\d{4}$/,
+                msg: 'A matrícula deve começar com uma letra i e ter quatro números em seguida.'
             }
         }
       },
@@ -24,11 +24,14 @@ const SecretarioModel = sequelize.define('SecretarioModel',{
       email:{
         type: DataTypes.STRING(100),
         unique: true,
-        allowNull: false, // Caso erro, é aqui
+        allowNull: false, 
         validate:{
-            isEmail:{
-                args:/^[a-zA-Z0-9._%+-]+@rn\.senac\.br$/,
+            is:{
+                args:/^[a-zA-Z0-9._%+-]+@edum\.rn\.senac\.br$/                ,
                 msg:'E-mail invalido! O e-mail deve pertencer ao dominio @rn.senac.br'
+            },
+            isNumeric:{
+              msg:'É permitido apenas números!'
             }
         }
       },
@@ -45,13 +48,14 @@ const SecretarioModel = sequelize.define('SecretarioModel',{
                 msg: 'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um símbolo especial (@, #, $, %, &, , !).'
             }
         }
-      }
+      },
+      
     },
     {
-        tableName:'secretario',
+        tableName:'professor',
         createdAt: 'criado_em',
         updatedAt: 'atualizado_em'
     }
   );
 
-  module.exports = SecretarioModel
+  module.exports = ProfessorModel
